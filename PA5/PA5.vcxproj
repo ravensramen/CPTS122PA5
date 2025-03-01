@@ -127,12 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="functions.cpp" />
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="queue.cpp" />
+    <ClCompile Include="queuenode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="data.hpp" />
     <ClInclude Include="header.hpp" />
-    <ClInclude Include="tests.hpp" />
+    <ClInclude Include="queue.hpp" />
+    <ClInclude Include="queuenode.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
