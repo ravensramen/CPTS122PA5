@@ -9,6 +9,11 @@ public:
 
 	~queueNode(); //destructor
 
+	void setNextNode(queueNode* const nextNode);
+	queueNode* getNextNode() const;
+
+	Data* getNodeData();
+
 private:
 	Data* pData;
 	queueNode* pNext;

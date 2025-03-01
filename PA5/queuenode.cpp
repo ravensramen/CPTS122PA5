@@ -25,3 +25,18 @@ queueNode::queueNode(Data newData) {
 queueNode::~queueNode()
 {
 }
+
+void queueNode::setNextNode(queueNode* const nextNode)
+{
+	this->pNext = nextNode; //sets pointer to next node
+}
+
+queueNode* queueNode::getNextNode() const
+{
+	return this->pNext;
+}
+
+Data* queueNode::getNodeData()
+{
+	return this->pData;
+}

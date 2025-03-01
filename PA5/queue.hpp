@@ -6,14 +6,13 @@ public://includes enqueue and dequeue functions
 	queue(); //queue constructor
 
 	bool enqueue(Data newData); //input customer/node data before adding to list
+	bool isEmpty() const; 
+
+	void print_queue();
 
 	
 private:
 
 	queueNode* pHead;
 	queueNode* pTail;
-
-	//
-	int timeElapsed; //to keep track of custom generation time and line duration time
-	int laneType; //either express or normal lane
 };
