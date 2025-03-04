@@ -2,104 +2,108 @@
 #include "queue.hpp" //includes header :)
 
 void arrivalMessage(Data newCustomer, int lineType);
+void dequeueMessage(bool dequeueStatus, int laneType, Data outputData);
+
 
 int main() {
 
-
-	int n = 0;
+	int n = 0; //simulation time
 	int minutesElapsed = 0; //keep track of the number of minutes that have passed
+	srand(time(0)); //seed for random number (arrival time )generation
 
-	cout << "Welcome to the supermarket line simulator! How many minutes is the checkout line open for today?: ";
+	cout << "Welcome to the Supermarket Line Simulator! How many minutes is the checkout line open for today?: ";
 	cin >> n;
 	cout << n << " minutes, alrighty! The customers should start rolling in any minute now..." << endl;
 	system("pause");
 	system("cls");
-	//while loop to represent each minute elapsing
 
-	//instantiate two lines (express and regular)
-
-	queue regularLane; //should be empty at instantiation, except for type?
-	queue expressLane; //^^
+	//instantiate two queues (express and regular)
+	queue regularLane;
+	queue expressLane; 
 	
-	srand(time(0)); //seed for random number generation
-
-	
-	int regularLaneCustomerRate = 0;
+	int regularLaneCustomerRate = 0; //randomly generated each iteration
 	int expressLaneCustomerRate = 0;
 
-	int regularCustomerID = 0;
+	int regularCustomerID = 0; //increments each iteration
 	int expressCustomerID = 0;
 
-	int regularLaneTotalTime = 0;
-	int expressLaneTotalTime = 0;
-
-	int lineType = 0; //for arrival message line type
+	int lineType = 0; //for console messaging
 
 	while (minutesElapsed<n) {
 		
-		//ADD arrival message corresponding to line? or add to enqueue
-		bool regLaneAdded = false; //for messaging 
-		bool expressLaneAdded = false;
+		//bool regLaneAdded = false; //for messaging 
+		//bool expressLaneAdded = false;
 
+		if (regularLaneCustomerRate == 0) { //if randomly generated rate reaches 0 min, generate new customer
 
-
-		if (regularLaneCustomerRate == 0) { //if line just started, subsequent rates determined by customer service time (in each node)
-
-			//generate new regular line customer
+			//generate data fields for regular line customer
 			Data newRegCustomer; //allocate memory for data fields
-			newRegCustomer.setCustomerNumber(++regularCustomerID); //increment the customer number
-			newRegCustomer.setServiceTime(rand() % 8 + 1); //generate random customer time, decrement at the end of each loop
-			newRegCustomer.setTotalTime(regularLaneTotalTime); //starts at zero of course and increments at each loop
+			newRegCustomer.setCustomerNumber(++regularCustomerID); //increment the customer id
+			newRegCustomer.setServiceTime(rand() % 8 + 1); //random service time, decrement at the end of each loop
+			newRegCustomer.setTotalTime(minutesElapsed);
 			
-			//create actual node with data fields above
+			//add customer node to queue
 			regularLane.enqueue(newRegCustomer);
 			arrivalMessage(newRegCustomer, 1);
 			
-			regularLaneCustomerRate = rand() % 8 + 1; //generate time until next customer
-			regLaneAdded = true;
+			regularLaneCustomerRate = rand() % 8 + 3; //generate time until next customer
+			
 		}
 		if (expressLaneCustomerRate == 0) { 
 			expressLaneCustomerRate = rand() % 5 + 1;
 
 			Data newExpressCustomer;
-			expressLaneAdded = true;
+			newExpressCustomer.setCustomerNumber(++expressCustomerID);
+			newExpressCustomer.setServiceTime(rand() % 5 + 1);
+			newExpressCustomer.setTotalTime(minutesElapsed);
+			
+			expressLane.enqueue(newExpressCustomer);
+			arrivalMessage(newExpressCustomer, 2);
 		}
 		
-		//DEQUEUE LOGIC:
 
-		//decrement minutes of service time of head node, when reaches zero, DEQUEUE NODE
-
-		
-		
 		cout << "one minute has passed" << endl;
-		//print summary of actions every 10 minutes
 
-		//for debuggin :P
-		system("pause");
+		//check if dequeue constraints are met
+		if (!regularLane.isEmpty()) {
+			regularLane.initiateDequeue(1);
+			regularLane.incrementQueue(); //subtract from service time of head, add one minute to total of ALL nodes
+		}
 
-		minutesElapsed++; 
-		regularLaneTotalTime++; //keeps track of entire time
-		expressLaneTotalTime++;
-
-		regularLaneCustomerRate--; //one minute has passed, one less minute until new customer arrives
-		//need to increment all nodes total time and decrement head node service time
 		
+		if (!expressLane.isEmpty()) {
+			expressLane.initiateDequeue(2);
+			expressLane.incrementQueue();
+		}
 
-		//if service time of node reaches zero, dequeue that mf
+		//data updates for each iteration
+		minutesElapsed++; 
 
-		//ADD exit message? or put in dequeue
-		if (minutesElapsed % 10 == 0) { //if 10 minutes have passed
-			system("cls");
-			//print queue
+		//one less minute until next customer arrives
+		regularLaneCustomerRate--; 
+		expressLaneCustomerRate--;
+		
+		//print message every 10 min
+		if (minutesElapsed % 10 == 0) {
+			system("cls"); 
 			cout << "Regular Line Current Summary: "<<endl;
 			regularLane.print_queue();
 			cout << endl;
+
+			cout << "Express Line Current Summary: " << endl;
+			expressLane.print_queue();
+			cout << endl;
+
+			system("pause");
+			system("cls");
 		}
 
+		system("pause");
+		system("cls");
 	}
 
-	cout << "the line is now closed...."; //possibly print summary?
-
+	//simulation end
+	cout << "the line is now closed....";
 	return 0;
 }
 
@@ -110,9 +114,27 @@ void arrivalMessage(Data newCustomer, int lineType){
 	}
 
 	if (lineType == 2) {
-		cout << "welcome express customer!";
+		cout << "Welcome express customer!" << endl;
 		cout << "Line: 2, ";
 	}
 	cout << "Customer ID: " << newCustomer.getCustomerNumber();
 	cout << ", Arrival Time: " << newCustomer.getTotalTime() << endl;
+}
+
+void dequeueMessage(bool dequeueStatus, int laneType, Data outputData) {
+
+	if (dequeueStatus == true) { //if an item was dequeued, print message
+
+		cout << "A customer finished checking out! " << endl;
+		cout << "Exit Summary: " << endl;
+		if (laneType == 1) {
+			//output message for regular lane
+			cout << "Lane Type: Regular, ";
+		}
+		if (laneType == 2) {
+			cout << "Lane Type: Express, ";
+		}
+		cout << "Customer Number: " << outputData.getCustomerNumber();
+		cout << ", Total Time (Minutes): " << outputData.getTotalTime() << endl;
+	}
 }

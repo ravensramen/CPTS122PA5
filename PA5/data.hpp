@@ -8,7 +8,11 @@ public: //member functions here
 	Data(int customer_number, int service_time, int total_time) : customerNumber(customer_number), serviceTime(service_time), totalTime(total_time) {} 
 
 	//copy constructor
-	Data(Data &copyData) : customerNumber(copyData.customerNumber),serviceTime(copyData.serviceTime), totalTime(copyData.totalTime) {}
+	
+	Data(const Data& copyData)
+		: customerNumber(copyData.customerNumber),
+		serviceTime(copyData.serviceTime),
+		totalTime(copyData.totalTime) {}
 
 	//getters, defined in cpp file
 	int getCustomerNumber();
