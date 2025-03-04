@@ -128,12 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="data.cpp" />
+    <ClCompile Include="functions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="queue.cpp" />
     <ClCompile Include="queuenode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data.hpp" />
+    <ClInclude Include="functions.hpp" />
     <ClInclude Include="header.hpp" />
     <ClInclude Include="queue.hpp" />
     <ClInclude Include="queuenode.hpp" />

@@ -35,16 +35,17 @@ bool queue::isEmpty() const {
 	return this->pHead == nullptr && this->pTail == nullptr; //if queue is empty, return true
 }
 
+//FIX PRINT
 void queue::print_queue() {
 
 	queueNode *pMem = this->pHead;
 
 	if (pMem == nullptr) {
-		cout << "The this line is empty...";
+		cout << "This line is empty...";
 		return; //early return
 	}
 
-	while (pMem->getNextNode() != nullptr) { //while not at the end of queue list
+	do { //while not at the end of queue list
 		cout << "Customer Number: ";
 		cout<< pMem->getNodeData()->getCustomerNumber();
 		cout << " ,Customer Service Time: ";
@@ -52,18 +53,17 @@ void queue::print_queue() {
 		cout << " ,Total Time: ";
 		cout << pMem->getNodeData()->getTotalTime() << endl;
 
-		pMem = pMem->getNextNode(); //onto next node
-	}
+	} while (pMem->getNextNode() != nullptr); //increments?
 }
 
 queueNode queue::getHead() {
 	return *(this->pHead);
 }
 
+//fix
 Data queue::dequeue() {
 	// If the queue is empty, return a default-constructed Data object (or handle error).
 	if (this->isEmpty()) {
-		// Optionally throw an exception here or return a default value.
 		cout << "Queue is empty!" << endl;
 		return Data(); // Returning a default-constructed Data object.
 	}
@@ -107,8 +107,9 @@ void queue::initiateDequeue(int laneType)
 {
 	if (this->pHead->getNodeData()->getServiceTime() == 0) {
 
-		cout << "A customer is leaving the line!" << endl;
-		cout << "Visit Summarry:" << endl;
+		cout << endl;
+		cout << "A customer is leaving the line..." << endl;
+		cout << "Visit Summary: ";
 		cout << "Line: ";
 		if (laneType == 1) {
 			cout << "Regular Line";
@@ -119,7 +120,7 @@ void queue::initiateDequeue(int laneType)
 
 		cout << ", Customer ID: " << this->pHead->getNodeData()->getCustomerNumber();
 		cout << ", Total Time: " << this->pHead->getNodeData()->getTotalTime() << endl; 
-
+		cout << endl; 
 		this->dequeue();
 
 	}
