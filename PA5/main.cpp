@@ -16,6 +16,6 @@ int main() {
 
 
 	//simulation end
-	cout << "the line is now closed....";
+	cout << "the store is now closed....";
 	return 0;
 }

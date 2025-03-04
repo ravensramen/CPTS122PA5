@@ -35,7 +35,7 @@ bool queue::isEmpty() const {
 	return this->pHead == nullptr && this->pTail == nullptr; //if queue is empty, return true
 }
 
-//FIX PRINT
+
 void queue::print_queue() {
 
 	queueNode *pMem = this->pHead;
@@ -45,7 +45,7 @@ void queue::print_queue() {
 		return; //early return
 	}
 
-	do { //while not at the end of queue list
+	while (pMem!=nullptr) { //while not at the end of queue list
 		cout << "Customer Number: ";
 		cout<< pMem->getNodeData()->getCustomerNumber();
 		cout << " ,Customer Service Time: ";
@@ -53,7 +53,8 @@ void queue::print_queue() {
 		cout << " ,Total Time: ";
 		cout << pMem->getNodeData()->getTotalTime() << endl;
 
-	} while (pMem->getNextNode() != nullptr); //increments?
+		pMem = pMem->getNextNode();
+	} 
 }
 
 queueNode queue::getHead() {
