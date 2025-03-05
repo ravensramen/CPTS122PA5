@@ -1,6 +1,16 @@
-#include "functions.hpp"
+#include "testcases.hpp" //also includes copy of header (functions.hpp)
 
 int main() {
+
+	Tests test; //declare test object
+	//uncomment test functions to test
+
+	//test.emptyEnqueue();
+	//test.populatedEnqueue();
+	//test.singleNodeDequeue();
+	//test.twoNodeDequeue();
+	//test.testDaySimulation();
+
 
 	int n = 0; //simulation time
 	 //keep track of the number of minutes that have passed

@@ -132,6 +132,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="queue.cpp" />
     <ClCompile Include="queuenode.cpp" />
+    <ClCompile Include="testcases.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data.hpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="header.hpp" />
     <ClInclude Include="queue.hpp" />
     <ClInclude Include="queuenode.hpp" />
+    <ClInclude Include="testcases.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

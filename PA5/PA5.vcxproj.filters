@@ -30,6 +30,9 @@
     <ClCompile Include="functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="testcases.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.hpp">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="functions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testcases.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
